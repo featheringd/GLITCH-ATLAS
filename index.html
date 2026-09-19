@@ -1,7 +1,417 @@
-1. 당신은 웹 디자이너 입니다.
-2. JS 및 HTML5, CSS를 사용해서 주제에 대한 웹페이지 .html 파일을 만드세요
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>GLITCH ATLAS — digicore / hyperpop / nightcore / nostalgiacore</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* ============================================================
+   GLITCH ATLAS — 디지털 서브컬처 미학 소개 사이트
+   digicore / hyperpop / nightcore / nostalgiacore
+   ※ 곡·아티스트 정보 중 연도/앨범/차트 등 세부 사실은 [확인 필요]로 표기.
+   ※ "nostalgiatic core"는 표준 장르명이 아니라 nostalgiacore(노스텔지어코어)
+      미학을 지칭하는 것으로 해석했습니다 — 명칭 자체도 [확인 필요].
+   ============================================================ */
 
-3.digicore 및 hyperpop 및 nightcore, nostalgiatic core 등에 대한 digit미학들에 대한 곡소개 및 느낌소개 아트워크도 만들고 해서 사이트 만들기
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&family=Do+Hyeon&family=Jua&display=swap');
 
-4. 기괴한, 글리치한, 디지코어한, 노스텔지어코어한 태그의 사진들을 잘 활용하세요. 이런 테마로 디자인하세요
-5. 애매한 것은 확인 필요라고 작성하세요.
+:root{
+  --dc-a:#ff2fd6; --dc-b:#2fffe0;      /* digicore */
+  --hp-a:#ff5ecb; --hp-b:#7dffb3;      /* hyperpop */
+  --nc-a:#ffd1f0; --nc-b:#c9a8ff;      /* nightcore */
+  --ns-a:#e8c98a; --ns-b:#8ab0c9;      /* nostalgiacore */
+  --ink:#08050d; --paper:#efe7ff;
+}
+*{ box-sizing:border-box; }
+html,body{
+  margin:0; background:var(--ink); color:var(--paper);
+  font-family:'Space Mono', monospace; overflow-x:hidden; cursor:crosshair;
+}
+a{ color:inherit; }
+
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:400; opacity:.55; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/></svg>");
+}
+.scan{
+  position:fixed; inset:0; pointer-events:none; z-index:401;
+  background:repeating-linear-gradient(to bottom, rgba(255,255,255,.035) 0 1px, transparent 2px 4px);
+  animation:scan 5s linear infinite;
+}
+@keyframes scan{ from{background-position:0 0;} to{background-position:0 40px;} }
+
+.marquee{
+  background:#000; color:var(--dc-b); font-family:'Press Start 2P',monospace; font-size:10px;
+  padding:6px 0; overflow:hidden; white-space:nowrap; border-bottom:2px solid var(--dc-a);
+}
+.marquee span{ display:inline-block; padding-left:100%; animation:mq 20s linear infinite; }
+@keyframes mq{ from{transform:translateX(0);} to{transform:translateX(-100%);} }
+
+nav{
+  position:sticky; top:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+  padding:12px 22px; background:rgba(8,5,13,.85); backdrop-filter:blur(4px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.logo{ font-family:'Do Hyeon'; font-size:19px; text-shadow:2px 0 var(--dc-a), -2px 0 var(--dc-b); }
+nav ul{ list-style:none; display:flex; gap:16px; margin:0; padding:0; flex-wrap:wrap; }
+nav a{ text-decoration:none; font-size:12px; }
+nav a:hover{ color:var(--hp-a); }
+
+/* ---------------- HERO ---------------- */
+.hero{
+  min-height:78vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:40px 16px; position:relative; overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,47,214,.28), transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(47,255,224,.25), transparent 55%),
+    radial-gradient(circle at 50% 90%, rgba(201,168,255,.25), transparent 60%),
+    var(--ink);
+}
+.hero h1{
+  font-family:'Do Hyeon'; font-size:clamp(34px,8vw,90px); margin:0; line-height:.95; color:#fff;
+  text-shadow:3px 0 var(--dc-a), -3px 0 var(--dc-b), 0 0 40px var(--hp-a);
+  animation:glitchH 4s infinite steps(1);
+}
+@keyframes glitchH{
+  0%,85%,100%{ transform:translate(0,0); }
+  87%{ transform:translate(-6px,2px) skew(2deg); }
+  89%{ transform:translate(6px,-2px) skew(-2deg); }
+}
+.hero .sub{ font-family:'Press Start 2P'; font-size:11px; color:var(--dc-b); margin-top:16px; letter-spacing:1px; }
+.hero p{ max-width:600px; margin:20px auto 0; font-size:13.5px; line-height:1.8; color:#d8cdf0; }
+.chip-row{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:22px; }
+.chip{
+  font-size:10.5px; font-family:'Press Start 2P'; padding:5px 9px; border-radius:4px; color:#000; cursor:pointer;
+}
+.chip.dc{ background:var(--dc-b); } .chip.hp{ background:var(--hp-a); }
+.chip.nc{ background:var(--nc-a); } .chip.ns{ background:var(--ns-a); }
+
+/* ---------------- 섹션 공통 ---------------- */
+section.genre{ padding:70px 20px; max-width:1100px; margin:0 auto; }
+.genre-head{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.genre-head h2{ font-family:'Do Hyeon'; font-size:clamp(28px,5vw,46px); margin:0; }
+.genre-tag{ font-size:10px; font-family:'Press Start 2P'; padding:3px 7px; border-radius:3px; color:#000; }
+.genre-desc{ font-size:13.5px; line-height:1.85; color:#d3c8ec; max-width:680px; margin-bottom:8px; }
+.confirm{ display:inline-block; background:#ff5050; color:#fff; font-size:9.5px; padding:1px 6px; border-radius:3px; margin-left:4px; vertical-align:2px; }
+
+.genre-body{ display:grid; grid-template-columns:1fr 1.1fr; gap:30px; margin-top:26px; align-items:start; }
+@media(max-width:800px){ .genre-body{ grid-template-columns:1fr; } }
+
+.artwork-frame{
+  aspect-ratio:1/1; border-radius:14px; overflow:hidden; border:2px solid rgba(255,255,255,.18);
+  position:relative;
+}
+.artwork-frame svg{ width:100%; height:100%; display:block; }
+.mood-label{
+  position:absolute; bottom:8px; left:8px; font-size:10px; font-family:'Press Start 2P';
+  background:rgba(0,0,0,.6); padding:4px 6px; border-radius:3px;
+}
+
+.song-list{ display:flex; flex-direction:column; gap:10px; }
+.song-card{
+  display:flex; align-items:center; gap:12px;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.15);
+  border-radius:8px; padding:10px 12px; cursor:pointer; transition:transform .15s;
+}
+.song-card:hover{ transform:translateX(4px); background:rgba(255,255,255,.09); }
+.song-play{
+  width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:13px; flex-shrink:0; color:#000;
+}
+.song-info b{ display:block; font-size:13.5px; }
+.song-info span{ font-size:11px; color:#b6a9d6; }
+
+/* ---------------- 장르별 팔레트/아트 강조 ---------------- */
+.dc-tag{ background:var(--dc-b); }
+.hp-tag{ background:var(--hp-a); }
+.nc-tag{ background:var(--nc-a); }
+.ns-tag{ background:var(--ns-a); }
+
+#digicore{ border-top:1px solid rgba(255,255,255,.08); }
+#hyperpop .artwork-frame{ animation:hueShift 6s linear infinite; }
+@keyframes hueShift{ from{filter:hue-rotate(0deg) saturate(1.4);} to{filter:hue-rotate(360deg) saturate(1.4);} }
+
+#nightcore .artwork-frame{ box-shadow:0 0 30px rgba(255,209,240,.4) inset; }
+#nostalgiacore{ background:linear-gradient(180deg, rgba(232,201,138,.05), transparent); border-radius:16px; }
+#nostalgiacore .artwork-frame{ filter:sepia(.35) contrast(1.05); }
+
+/* ---------------- 무드보드 팔레트 스와치 ---------------- */
+.palette{ display:flex; gap:6px; margin-top:14px; }
+.swatch{ width:26px; height:26px; border-radius:5px; border:1px solid rgba(255,255,255,.3); }
+
+footer{
+  text-align:center; padding:34px 16px 60px; font-size:11px; color:#8a7ba8;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+/* ---------------- 모달 ---------------- */
+.modal-overlay{
+  display:none; position:fixed; inset:0; background:rgba(5,0,15,.82); z-index:300;
+  align-items:center; justify-content:center; padding:16px;
+}
+.modal-overlay.active{ display:flex; }
+.modal-box{
+  background:linear-gradient(160deg,#1c1030,#0c0618); border:3px solid var(--dc-a); border-radius:12px;
+  max-width:440px; width:100%; padding:22px; position:relative; box-shadow:0 0 30px var(--hp-a);
+  max-height:85vh; overflow-y:auto;
+}
+.modal-box h3{ font-family:'Do Hyeon'; color:var(--dc-b); margin-top:0; }
+.modal-box p{ font-size:13px; line-height:1.7; }
+.modal-close{ position:absolute; top:8px; right:10px; background:none; border:none; color:#fff; font-size:20px; cursor:pointer; }
+.warn{ margin-top:10px; padding:8px 10px; background:rgba(255,80,80,.12); border-left:3px solid #ff5050; font-size:11.5px; color:#ffb3b3; }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="scan"></div>
+
+<div class="marquee"><span>★ GLITCH ATLAS ★ digicore / hyperpop / nightcore / nostalgiacore ★ 곡·아티스트 세부정보는 확인 필요 ★ 볼륨을 낮춰주세요(가상 사이트입니다) ★</span></div>
+
+<nav>
+  <div class="logo">GLITCH ATLAS</div>
+  <ul>
+    <li><a href="#digicore">DIGICORE</a></li>
+    <li><a href="#hyperpop">HYPERPOP</a></li>
+    <li><a href="#nightcore">NIGHTCORE</a></li>
+    <li><a href="#nostalgiacore">NOSTALGIACORE</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <h1>GLITCH<br>ATLAS</h1>
+  <div class="sub">DIGITAL AESTHETICS FIELD GUIDE</div>
+  <p>
+    깨진 오토튠, 과포화된 색, 픽셀 노이즈, 그리고 유년기 인터넷의 잔상.
+    digicore · hyperpop · nightcore · nostalgiacore 네 가지 디지털 미학을
+    무드보드와 대표곡으로 소개합니다.
+    <span class="confirm">장르 경계·명칭 표기는 확인 필요</span>
+  </p>
+  <div class="chip-row">
+    <div class="chip dc" onclick="location.hash='digicore'">DIGICORE</div>
+    <div class="chip hp" onclick="location.hash='hyperpop'">HYPERPOP</div>
+    <div class="chip nc" onclick="location.hash='nightcore'">NIGHTCORE</div>
+    <div class="chip ns" onclick="location.hash='nostalgiacore'">NOSTALGIACORE</div>
+  </div>
+</section>
+
+<!-- ================= DIGICORE ================= -->
+<section class="genre" id="digicore">
+  <div class="genre-head">
+    <h2>Digicore</h2>
+    <span class="genre-tag dc-tag">2018~ · SoundCloud/Discord 발 씬</span>
+  </div>
+  <p class="genre-desc">
+    깨진 오토튠 보컬, 저해상도 신스, 갑작스러운 장르 전환이 특징인 인터넷 태생 장르.
+    hyperpop과 emo rap/SoundCloud 랩의 교차점에서 발전했다고 알려져 있습니다
+    <span class="confirm">세부 기원·연대는 확인 필요</span>.
+    비주얼은 파편화된 디스플레이, 깨진 텍스트, 저채도 배경 위 형광색 글리치가 자주 쓰입니다.
+  </p>
+  <div class="genre-body">
+    <div>
+      <div class="artwork-frame" id="art-dc"></div>
+      <div class="palette" id="pal-dc"></div>
+      <div class="mood-label" style="position:static;display:inline-block;margin-top:8px;">MOOD: 불안정·파편화·번아웃</div>
+    </div>
+    <div class="song-list" id="songs-dc"></div>
+  </div>
+</section>
+
+<!-- ================= HYPERPOP ================= -->
+<section class="genre" id="hyperpop">
+  <div class="genre-head">
+    <h2>Hyperpop</h2>
+    <span class="genre-tag hp-tag">PC Music 계보 · 2019~ 대중화</span>
+  </div>
+  <p class="genre-desc">
+    극단적으로 압축·왜곡된 팝 사운드, 만화 같은 하이피치 보컬, 과포화 비주얼이 특징입니다.
+    PC Music 레이블 및 100 gecs 등이 대표적으로 언급되나
+    <span class="confirm">정확한 장르 시작점/대표작 목록은 확인 필요</span>.
+    비주얼 언어는 반짝이는 3D 렌더, 젤리·플라스틱 질감, 채도 과다한 그라디언트가 특징적입니다.
+  </p>
+  <div class="genre-body">
+    <div>
+      <div class="artwork-frame" id="art-hp"></div>
+      <div class="palette" id="pal-hp"></div>
+      <div class="mood-label" style="position:static;display:inline-block;margin-top:8px;">MOOD: 과잉·유쾌·인공적</div>
+    </div>
+    <div class="song-list" id="songs-hp"></div>
+  </div>
+</section>
+
+<!-- ================= NIGHTCORE ================= -->
+<section class="genre" id="nightcore">
+  <div class="genre-head">
+    <h2>Nightcore</h2>
+    <span class="genre-tag nc-tag">2000년대 초반 유럽 · 리믹스 문화</span>
+  </div>
+  <p class="genre-desc">
+    기존 곡의 피치와 템포를 크게 올려 리믹스하는 문화/기법으로, 2000년대 초 노르웨이에서
+    시작되었다고 알려져 있습니다 <span class="confirm">정확한 기원 및 최초 채널은 확인 필요</span>.
+    비주얼은 애니메 일러스트, 파스텔톤, 반짝이(스파클) 효과와 결합되는 경우가 많습니다.
+  </p>
+  <div class="genre-body">
+    <div>
+      <div class="artwork-frame" id="art-nc"></div>
+      <div class="palette" id="pal-nc"></div>
+      <div class="mood-label" style="position:static;display:inline-block;margin-top:8px;">MOOD: 들뜸·과속·달콤함</div>
+    </div>
+    <div class="song-list" id="songs-nc"></div>
+  </div>
+</section>
+
+<!-- ================= NOSTALGIACORE ================= -->
+<section class="genre" id="nostalgiacore">
+  <div class="genre-head">
+    <h2>Nostalgiacore</h2>
+    <span class="genre-tag ns-tag">웹 비주얼 미학 (음악 장르 아님) <span class="confirm">명칭 확인 필요</span></span>
+  </div>
+  <p class="genre-desc">
+    엄밀히는 음악 장르보다 <b>비주얼/무드 미학</b>에 가까우며, 2000년대~2010년대 초 유년기의
+    디지털 매체(캠코더, CRT, 오래된 윈도우 UI, 흐릿한 사진)를 회상시키는 이미지들을 지칭합니다.
+    weirdcore/dreamcore와 인접 개념으로 함께 언급되는 경우가 많습니다
+    <span class="confirm">장르/미학 간 구분은 확인 필요</span>.
+    음악적으로는 로파이, 브레인/베이퍼웨이브 인접 트랙과 함께 쓰이는 경우가 많습니다.
+  </p>
+  <div class="genre-body">
+    <div>
+      <div class="artwork-frame" id="art-ns"></div>
+      <div class="palette" id="pal-ns"></div>
+      <div class="mood-label" style="position:static;display:inline-block;margin-top:8px;">MOOD: 그리움·흐릿함·안온함과 불안의 공존</div>
+    </div>
+    <div class="song-list" id="songs-ns"></div>
+  </div>
+</section>
+
+<footer>
+  본 사이트는 디지털 서브컬처 미학 소개 목적의 데모입니다. 아티스트/곡 정보, 장르 기원·연대,
+  용어 정의는 참고용이며 세부 사실은 반드시 별도로 확인이 필요합니다.
+</footer>
+
+<div class="modal-overlay" id="songModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="songModalTitle">곡 정보</h3>
+    <p id="songModalBody"></p>
+    <div class="warn">
+      ※ 재생 기능은 구현되어 있지 않은 데모입니다. 실제 아티스트명/발매연도/앨범/스트리밍 링크는
+      반드시 공식 출처로 확인 후 반영해야 합니다.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- 장르별 팔레트 ---------------- */
+const palettes = {
+  dc:['#ff2fd6','#2fffe0','#1a1a2e','#ffffff'],
+  hp:['#ff5ecb','#7dffb3','#ffe14d','#8a5eff'],
+  nc:['#ffd1f0','#c9a8ff','#ffffff','#ff9ecb'],
+  ns:['#e8c98a','#8ab0c9','#c9b79a','#4a4032'],
+};
+Object.entries(palettes).forEach(([key,colors])=>{
+  const el = document.getElementById('pal-'+key);
+  colors.forEach(c=>{
+    const sw = document.createElement('div');
+    sw.className='swatch'; sw.style.background=c;
+    el.appendChild(sw);
+  });
+});
+
+/* ---------------- 아트워크 SVG 생성 (장르별 스타일) ---------------- */
+function makeArt(targetId, colors, style){
+  const svgns='http://www.w3.org/2000/svg';
+  const seed = Math.floor(Math.random()*999);
+  let extra = '';
+  if(style==='glitch'){
+    extra = `<g filter="url(#tb_${targetId})">
+      <rect x="20" y="40" width="260" height="26" fill="${colors[0]}"/>
+      <rect x="10" y="120" width="280" height="18" fill="${colors[1]}"/>
+      <rect x="40" y="220" width="220" height="30" fill="${colors[0]}" opacity="0.7"/>
+    </g>`;
+  }
+  const svg = `
+    <svg viewBox="0 0 300 300" xmlns="${svgns}">
+      <defs>
+        <filter id="tb_${targetId}">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.06" numOctaves="3" seed="${seed}" result="t"/>
+          <feDisplacementMap in="SourceGraphic" in2="t" scale="${style==='soft'?15:45}"/>
+        </filter>
+        <radialGradient id="rg_${targetId}" cx="35%" cy="30%">
+          <stop offset="0%" stop-color="${colors[0]}"/>
+          <stop offset="100%" stop-color="${colors[2]||'#08050d'}"/>
+        </radialGradient>
+        <radialGradient id="rg2_${targetId}" cx="70%" cy="70%">
+          <stop offset="0%" stop-color="${colors[1]}"/>
+          <stop offset="100%" stop-color="${colors[2]||'#08050d'}" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="300" fill="${colors[2]||'#08050d'}"/>
+      <g filter="url(#tb_${targetId})">
+        <circle cx="110" cy="120" r="110" fill="url(#rg_${targetId})"/>
+        <circle cx="200" cy="200" r="100" fill="url(#rg2_${targetId})"/>
+      </g>
+      ${extra}
+    </svg>
+  `;
+  document.getElementById(targetId).innerHTML = svg;
+}
+makeArt('art-dc', palettes.dc, 'glitch');
+makeArt('art-hp', palettes.hp, 'glitch');
+makeArt('art-nc', palettes.nc, 'soft');
+makeArt('art-ns', palettes.ns, 'soft');
+
+/* ---------------- 곡 리스트 (세부 정보는 확인 필요) ---------------- */
+const songData = {
+  dc: [
+    {title:'artist/곡명 확인 필요', note:'digicore 대표 트랙 예시 슬롯', color:palettes.dc[0]},
+    {title:'artist/곡명 확인 필요', note:'브로큰 오토튠 보컬 예시', color:palettes.dc[1]},
+    {title:'artist/곡명 확인 필요', note:'장르 크로스오버 예시', color:palettes.dc[0]},
+  ],
+  hp: [
+    {title:'artist/곡명 확인 필요', note:'PC Music 계보 예시 슬롯', color:palettes.hp[0]},
+    {title:'artist/곡명 확인 필요', note:'맥시멀 팝 프로덕션 예시', color:palettes.hp[1]},
+    {title:'artist/곡명 확인 필요', note:'하이피치 보컬 예시', color:palettes.hp[3]},
+  ],
+  nc: [
+    {title:'원곡/리믹서명 확인 필요', note:'클래식 nightcore 리믹스 예시', color:palettes.nc[1]},
+    {title:'원곡/리믹서명 확인 필요', note:'유로댄스 기반 리믹스 예시', color:palettes.nc[3]},
+    {title:'원곡/리믹서명 확인 필요', note:'애니메 OST 기반 리믹스 예시', color:palettes.nc[0]},
+  ],
+  ns: [
+    {title:'artist/곡명 확인 필요', note:'로파이/베이퍼웨이브 인접 예시', color:palettes.ns[1]},
+    {title:'artist/곡명 확인 필요', note:'올드 캠코더 무드 예시', color:palettes.ns[0]},
+    {title:'artist/곡명 확인 필요', note:'흐릿한 기억 무드 예시', color:palettes.ns[2]},
+  ],
+};
+
+Object.entries(songData).forEach(([key, list])=>{
+  const container = document.getElementById('songs-'+key);
+  list.forEach((song, idx)=>{
+    const card = document.createElement('div');
+    card.className='song-card';
+    card.innerHTML = `
+      <div class="song-play" style="background:${song.color}">▶</div>
+      <div class="song-info">
+        <b>${song.title}</b>
+        <span>${song.note}</span>
+      </div>
+    `;
+    card.addEventListener('click', ()=> openSongModal(song));
+    container.appendChild(card);
+  });
+});
+
+function openSongModal(song){
+  document.getElementById('songModalTitle').textContent = song.title;
+  document.getElementById('songModalBody').textContent =
+    `${song.note} — 실제 아티스트명, 정확한 곡명, 발매연도, 앨범, 스트리밍 링크는 확인 필요입니다.`;
+  document.getElementById('songModal').classList.add('active');
+}
+function closeModal(){ document.getElementById('songModal').classList.remove('active'); }
+document.getElementById('songModal').addEventListener('click', e=>{
+  if(e.target.id==='songModal') closeModal();
+});
+</script>
+</body>
+</html>
